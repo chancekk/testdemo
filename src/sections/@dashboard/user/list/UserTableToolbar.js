@@ -16,7 +16,7 @@ UserTableToolbar.propTypes = {
 export default function UserTableToolbar({ filterName, filterRole, onFilterName, onFilterRole, optionsRole }) {
   return (
     <Stack spacing={2} direction={{ xs: 'column', sm: 'row' }} sx={{ py: 2.5, px: 3 }}>
-      <TextField
+      {/* <TextField
         fullWidth
         select
         label="Role"
@@ -47,13 +47,13 @@ export default function UserTableToolbar({ filterName, filterRole, onFilterName,
             {option}
           </MenuItem>
         ))}
-      </TextField>
+      </TextField> */}
 
       <TextField
         fullWidth
         value={filterName}
         onChange={(event) => onFilterName(event.target.value)}
-        placeholder="Search user..."
+        placeholder="Nhập tên đăng nhập ..."
         InputProps={{
           startAdornment: (
             <InputAdornment position="start">

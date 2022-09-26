@@ -125,12 +125,11 @@ function AuthProvider({ children }) {
     });
   };
 
-  const register = async (email, password, firstName, lastName) => {
+  const register = async (username, password, profile) => {
     const response = await axios.post('/api/users', {
-      email,
+      username,
       password,
-      firstName,
-      lastName,
+      profile,
     });
     const { accessToken, user } = response.data;
 

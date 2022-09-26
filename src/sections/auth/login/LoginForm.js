@@ -26,8 +26,8 @@ export default function LoginForm() {
   const [showPassword, setShowPassword] = useState(false);
 
   const LoginSchema = Yup.object().shape({
-    username: Yup.string().required('Must fill username...'),
-    password: Yup.string().required('Password is required'),
+    username: Yup.string().required('Vui lòng nhập tên đăng nhập...'),
+    password: Yup.string().required('Vui lòng nhập tên mật khẩu...'),
   });
 
   const defaultValues = {
@@ -85,7 +85,6 @@ export default function LoginForm() {
       </Stack>
 
       <Stack direction="row" alignItems="center" justifyContent="space-between" sx={{ my: 2 }}>
-        <RHFCheckbox name="remember" label="Remember me" />
         <Link component={RouterLink} variant="subtitle2" to={PATH_AUTH.resetPassword}>
           Forgot password?
         </Link>

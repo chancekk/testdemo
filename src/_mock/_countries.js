@@ -256,3 +256,8 @@ export const countries = [
   { code: 'ZM', label: 'Zambia', phone: '260' },
   { code: 'ZW', label: 'Zimbabwe', phone: '263' },
 ];
+
+export const gender = [
+  { code: 'Male', label: 'Nam' },
+  { code: 'Female', label: 'Nữ' },
+];

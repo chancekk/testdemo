@@ -1,5 +1,4 @@
 import { paramCase } from 'change-case';
-
 import { useEffect, useState } from 'react';
 import { Link as RouterLink, useNavigate } from 'react-router-dom';
 // @mui
@@ -20,8 +19,6 @@ import {
   TablePagination,
   FormControlLabel,
 } from '@mui/material';
-import axios from '../../utils/axios';
-
 // routes
 import { PATH_DASHBOARD } from '../../routes/paths';
 // hooks
@@ -31,15 +28,14 @@ import useTable, { getComparator, emptyRows } from '../../hooks/useTable';
 // _mock_
 import { _userList } from '../../_mock';
 // components
-
 import Page from '../../components/Page';
 import Iconify from '../../components/Iconify';
 import Scrollbar from '../../components/Scrollbar';
 import HeaderBreadcrumbs from '../../components/HeaderBreadcrumbs';
 import { TableEmptyRows, TableHeadCustom, TableNoData, TableSelectedActions } from '../../components/table';
 // sections
-
 import { UserTableToolbar, UserTableRow } from '../../sections/@dashboard/user/list';
+import axios from '../../utils/axios';
 
 // ----------------------------------------------------------------------
 
@@ -59,11 +55,11 @@ const ROLE_OPTIONS = [
 ];
 
 const TABLE_HEAD = [
-  { id: 'name', label: 'Name', align: 'left' },
-  { id: 'company', label: 'Company', align: 'left' },
-  { id: 'role', label: 'Role', align: 'left' },
-  { id: 'isVerified', label: 'Verified', align: 'center' },
-  { id: 'status', label: 'Status', align: 'left' },
+  { id: 'name', label: 'Tên đăng nhập', align: 'left' },
+  { id: 'role', label: 'Họ tên', align: 'left' },
+  { id: 'isVerified', label: 'Giới tính', align: 'left' },
+  { id: 'status', label: 'Số điện thoại', align: 'left' },
+
   { id: '' },
 ];
 
@@ -95,31 +91,16 @@ export default function UserList() {
 
   const [tableData, setTableData] = useState([]);
   useEffect(() => {
-    axios
-      .get('http://localhost:8000/api/users')
-      .then((response) => response.json())
-      .then((response) => setTableData(response));
+    const demoapi = async () => {
+      const response = await axios.get('/api/users');
+      const { users } = response.data;
+      setTableData(users);
+
+      // const { users } = response.data;
+    };
+    demoapi();
   }, []);
-
-  // fetch('http://localhost:8000/api/users/', {
-  //   method: 'get',
-  //   headers: {
-  //     ContentType: 'application/json',
-  //     Authentication:
-  //       'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzMzBmODg4MmFlMzZiZmVhNjExMTkzMyIsImlhdCI6MTY2NDE1NDA0NywiZXhwIjoxNjY0MjQwNDQ3fQ.aaRwAoVN0fi8_5xyXMC0HPpxG-W-4wyjwbQj8-F6lY8',
-  //   },
-  // })
-  //   .then((resp) => resp.json())
-  //   .then((json) => console.log(json));
-  // const res = axios.get('http://localhost:8000/api/users/', {
-  //   headers: {
-  //     Authorization:
-  //       'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzMzBmODg4MmFlMzZiZmVhNjExMTkzMyIsImlhdCI6MTY2NDE1NDA0NywiZXhwIjoxNjY0MjQwNDQ3fQ.aaRwAoVN0fi8_5xyXMC0HPpxG-W-4wyjwbQj8-F6lY8',
-  //   }
-  //     .then((res) => res.json())
-  //     .then((res) => setTableData(res)),
-  // });
-
+  console.log(tableData);
   const [filterName, setFilterName] = useState('');
 
   const [filterRole, setFilterRole] = useState('all');
@@ -183,13 +164,13 @@ export default function UserList() {
               to={PATH_DASHBOARD.user.new}
               startIcon={<Iconify icon={'eva:plus-fill'} />}
             >
-              New User
+              Thêm người dùng
             </Button>
           }
         />
 
         <Card>
-          <Tabs
+          {/* <Tabs
             allowScrollButtonsMobile
             variant="scrollable"
             scrollButtons="auto"
@@ -200,7 +181,7 @@ export default function UserList() {
             {STATUS_OPTIONS.map((tab) => (
               <Tab disableRipple key={tab} label={tab} value={tab} />
             ))}
-          </Tabs>
+          </Tabs> */}
 
           <Divider />
 
@@ -308,7 +289,7 @@ function applySortFilter({ tableData, comparator, filterName, filterStatus, filt
   tableData = stabilizedThis.map((el) => el[0]);
 
   if (filterName) {
-    tableData = tableData.filter((item) => item.name.toLowerCase().indexOf(filterName.toLowerCase()) !== -1);
+    tableData = tableData.filter((item) => item.username.toLowerCase().indexOf(filterName.toLowerCase()) !== -1);
   }
 
   if (filterStatus !== 'all') {

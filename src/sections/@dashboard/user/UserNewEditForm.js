@@ -14,7 +14,7 @@ import { fData } from '../../../utils/formatNumber';
 // routes
 import { PATH_DASHBOARD } from '../../../routes/paths';
 // _mock
-import { countries } from '../../../_mock';
+import { countries, gender } from '../../../_mock';
 // components
 import Label from '../../../components/Label';
 import { FormProvider, RHFSelect, RHFSwitch, RHFTextField, RHFUploadAvatar } from '../../../components/hook-form';
@@ -32,33 +32,33 @@ export default function UserNewEditForm({ isEdit, currentUser }) {
   const { enqueueSnackbar } = useSnackbar();
 
   const NewUserSchema = Yup.object().shape({
-    name: Yup.string().required('Name is required'),
-    email: Yup.string().required('Email is required').email(),
-    phoneNumber: Yup.string().required('Phone number is required'),
-    address: Yup.string().required('Address is required'),
-    country: Yup.string().required('country is required'),
-    company: Yup.string().required('Company is required'),
-    state: Yup.string().required('State is required'),
-    city: Yup.string().required('City is required'),
-    role: Yup.string().required('Role Number is required'),
-    avatarUrl: Yup.mixed().test('required', 'Avatar is required', (value) => value !== ''),
+    username: Yup.string().required('Vui lòng nhập tên đăng nhập...'),
+    password: Yup.string().required('Vui lòng nhập tên mật khẩu...'),
+    name: Yup.string().required('Vui lòng nhập tên họ tên...'),
+    phoneNumber: Yup.string().required('Vui lòng nhập tên số điện thoại...'),
+    gender: Yup.string().required('Vui lòng chọn giới tính...'),
+    // company: Yup.string().required('Company is required'),
+    // state: Yup.string().required('State is required'),
+    // city: Yup.string().required('City is required'),
+    // role: Yup.string().required('Role Number is required'),
+    // avatarUrl: Yup.mixed().test('required', 'Avatar is required', (value) => value !== ''),
   });
 
   const defaultValues = useMemo(
     () => ({
+      username: currentUser?.username || '',
+      password: currentUser?.password || '',
       name: currentUser?.name || '',
-      email: currentUser?.email || '',
       phoneNumber: currentUser?.phoneNumber || '',
-      address: currentUser?.address || '',
-      country: currentUser?.country || '',
-      state: currentUser?.state || '',
-      city: currentUser?.city || '',
-      zipCode: currentUser?.zipCode || '',
-      avatarUrl: currentUser?.avatarUrl || '',
-      isVerified: currentUser?.isVerified || true,
-      status: currentUser?.status,
-      company: currentUser?.company || '',
-      role: currentUser?.role || '',
+      gender: currentUser?.gender || '',
+      // state: currentUser?.state || '',
+      // city: currentUser?.city || '',
+      // zipCode: currentUser?.zipCode || '',
+      // avatarUrl: currentUser?.avatarUrl || '',
+      // isVerified: currentUser?.isVerified || true,
+      // status: currentUser?.status,
+      // company: currentUser?.company || '',
+      // role: currentUser?.role || '',
     }),
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [currentUser]
@@ -90,37 +90,38 @@ export default function UserNewEditForm({ isEdit, currentUser }) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isEdit, currentUser]);
 
-  const onSubmit = async () => {
+  const onSubmit = async (data) => {
     try {
       await new Promise((resolve) => setTimeout(resolve, 500));
       reset();
-      enqueueSnackbar(!isEdit ? 'Create success!' : 'Update success!');
-      navigate(PATH_DASHBOARD.user.list);
+      // enqueueSnackbar(!isEdit ? 'Create success!' : 'Update success!');
+      // navigate(PATH_DASHBOARD.user.list);
+      console.log(data);
     } catch (error) {
       console.error(error);
     }
   };
 
-  const handleDrop = useCallback(
-    (acceptedFiles) => {
-      const file = acceptedFiles[0];
+  // const handleDrop = useCallback(
+  //   (acceptedFiles) => {
+  //     const file = acceptedFiles[0];
 
-      if (file) {
-        setValue(
-          'avatarUrl',
-          Object.assign(file, {
-            preview: URL.createObjectURL(file),
-          })
-        );
-      }
-    },
-    [setValue]
-  );
+  //     if (file) {
+  //       setValue(
+  //         'avatarUrl',
+  //         Object.assign(file, {
+  //           preview: URL.createObjectURL(file),
+  //         })
+  //       );
+  //     }
+  //   },
+  //   [setValue]
+  // );
 
   return (
     <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
       <Grid container spacing={3}>
-        <Grid item xs={12} md={4}>
+        {/* <Grid item xs={12} md={4}>
           <Card sx={{ py: 10, px: 3 }}>
             {isEdit && (
               <Label
@@ -200,9 +201,9 @@ export default function UserNewEditForm({ isEdit, currentUser }) {
               sx={{ mx: 0, width: 1, justifyContent: 'space-between' }}
             />
           </Card>
-        </Grid>
+        </Grid> */}
 
-        <Grid item xs={12} md={8}>
+        <Grid item xs={12} md={12}>
           <Card sx={{ p: 3 }}>
             <Box
               sx={{
@@ -212,30 +213,31 @@ export default function UserNewEditForm({ isEdit, currentUser }) {
                 gridTemplateColumns: { xs: 'repeat(1, 1fr)', sm: 'repeat(2, 1fr)' },
               }}
             >
-              <RHFTextField name="name" label="Full Name" />
-              <RHFTextField name="email" label="Email Address" />
-              <RHFTextField name="phoneNumber" label="Phone Number" />
+              <RHFTextField name="username" label="Tên đăng nhập" />
+              <RHFTextField name="password" label="Mật khẩu" type="password" />
 
-              <RHFSelect name="country" label="Country" placeholder="Country">
+              <RHFTextField name="name" label="Họ tên" />
+
+              {/* <RHFTextField name="email" label="Email Address" /> */}
+              <RHFTextField name="phoneNumber" label="Số điện thoại" type="number" />
+
+              <RHFSelect name="gender" label="Giới tính" placeholder="Giới tính">
                 <option value="" />
-                {countries.map((option) => (
-                  <option key={option.code} value={option.label}>
+                {gender.map((option) => (
+                  <option key={option.code} value={option.code}>
                     {option.label}
                   </option>
                 ))}
               </RHFSelect>
 
-              <RHFTextField name="state" label="State/Region" />
-              <RHFTextField name="city" label="City" />
-              <RHFTextField name="address" label="Address" />
-              <RHFTextField name="zipCode" label="Zip/Code" />
-              <RHFTextField name="company" label="Company" />
-              <RHFTextField name="role" label="Role" />
+              {/* <RHFTextField name="address" label="Address" />
+              <RHFTextField name="zipCode" label="Zip/Code" /> */}
+              {/* <RHFTextField name="role" label="Role" /> */}
             </Box>
 
             <Stack alignItems="flex-end" sx={{ mt: 3 }}>
               <LoadingButton type="submit" variant="contained" loading={isSubmitting}>
-                {!isEdit ? 'Create User' : 'Save Changes'}
+                {!isEdit ? 'Tạo người dùng' : 'Save Changes'}
               </LoadingButton>
             </Stack>
           </Card>
