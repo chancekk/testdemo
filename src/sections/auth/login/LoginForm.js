@@ -31,7 +31,7 @@ export default function LoginForm() {
   });
 
   const defaultValues = {
-    username: 'khanglpd',
+    username: 'khanglpd1',
     password: '123456',
   };
 

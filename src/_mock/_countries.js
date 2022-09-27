@@ -258,6 +258,6 @@ export const countries = [
 ];
 
 export const gender = [
-  { code: 'Male', label: 'Nam' },
-  { code: 'Female', label: 'Nữ' },
+  { code: 'male', label: 'Nam' },
+  { code: 'female', label: 'Nữ' },
 ];

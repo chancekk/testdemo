@@ -1,5 +1,7 @@
 import { paramCase, capitalCase } from 'change-case';
 import { useParams, useLocation } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+
 // @mui
 import { Container } from '@mui/material';
 // routes
@@ -13,11 +15,24 @@ import Page from '../../components/Page';
 import HeaderBreadcrumbs from '../../components/HeaderBreadcrumbs';
 // sections
 import UserNewEditForm from '../../sections/@dashboard/user/UserNewEditForm';
+import axios from '../../utils/axios';
 
 // ----------------------------------------------------------------------
 
 export default function UserCreate() {
   const { themeStretch } = useSettings();
+
+  const [profileApi, setProfileApi] = useState([]);
+  useEffect(() => {
+    const demoapi = async () => {
+      const response = await axios.get('/api/users');
+      const { users } = response.data;
+      setProfileApi(users);
+
+      // const { users } = response.data;
+    };
+    demoapi();
+  }, []);
 
   const { pathname } = useLocation();
 
@@ -25,7 +40,7 @@ export default function UserCreate() {
 
   const isEdit = pathname.includes('edit');
 
-  const currentUser = _userList.find((user) => paramCase(user.name) === name);
+  const currentUser = profileApi.find((user) => paramCase(user.username) === name);
 
   return (
     <Page title="User: Create a new user">

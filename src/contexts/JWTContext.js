@@ -55,6 +55,7 @@ const AuthContext = createContext({
   login: () => Promise.resolve(),
   logout: () => Promise.resolve(),
   register: () => Promise.resolve(),
+  updated: () => Promise.resolve(),
 });
 
 // ----------------------------------------------------------------------
@@ -125,12 +126,10 @@ function AuthProvider({ children }) {
     });
   };
 
-  const register = async (username, password, profile) => {
-    const response = await axios.post('/api/users', {
-      username,
-      password,
-      profile,
-    });
+  const register = async (obj) => {
+    console.log(obj);
+    const response = await axios.post('/api/users', obj);
+
     const { accessToken, user } = response.data;
 
     localStorage.setItem('accessToken', accessToken);
@@ -141,6 +140,9 @@ function AuthProvider({ children }) {
         user,
       },
     });
+  };
+  const updated = async (obj) => {
+    const response = await axios.put('/api/users/', obj);
   };
 
   const logout = async () => {
@@ -156,6 +158,7 @@ function AuthProvider({ children }) {
         login,
         logout,
         register,
+        updated,
       }}
     >
       {children}

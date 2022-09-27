@@ -18,6 +18,7 @@ import { countries, gender } from '../../../_mock';
 // components
 import Label from '../../../components/Label';
 import { FormProvider, RHFSelect, RHFSwitch, RHFTextField, RHFUploadAvatar } from '../../../components/hook-form';
+import useAuth from '../../../hooks/useAuth';
 
 // ----------------------------------------------------------------------
 
@@ -27,6 +28,8 @@ UserNewEditForm.propTypes = {
 };
 
 export default function UserNewEditForm({ isEdit, currentUser }) {
+  const { register, updated } = useAuth();
+
   const navigate = useNavigate();
 
   const { enqueueSnackbar } = useSnackbar();
@@ -35,7 +38,7 @@ export default function UserNewEditForm({ isEdit, currentUser }) {
     username: Yup.string().required('Vui lòng nhập tên đăng nhập...'),
     password: Yup.string().required('Vui lòng nhập tên mật khẩu...'),
     name: Yup.string().required('Vui lòng nhập tên họ tên...'),
-    phoneNumber: Yup.string().required('Vui lòng nhập tên số điện thoại...'),
+    phone: Yup.string().required('Vui lòng nhập tên số điện thoại...'),
     gender: Yup.string().required('Vui lòng chọn giới tính...'),
     // company: Yup.string().required('Company is required'),
     // state: Yup.string().required('State is required'),
@@ -47,10 +50,9 @@ export default function UserNewEditForm({ isEdit, currentUser }) {
   const defaultValues = useMemo(
     () => ({
       username: currentUser?.username || '',
-      password: currentUser?.password || '',
-      name: currentUser?.name || '',
-      phoneNumber: currentUser?.phoneNumber || '',
-      gender: currentUser?.gender || '',
+      name: currentUser?.profile.name || '',
+      phone: currentUser?.profile.phone || '',
+      gender: currentUser?.profile.gender || '',
       // state: currentUser?.state || '',
       // city: currentUser?.city || '',
       // zipCode: currentUser?.zipCode || '',
@@ -92,11 +94,27 @@ export default function UserNewEditForm({ isEdit, currentUser }) {
 
   const onSubmit = async (data) => {
     try {
-      await new Promise((resolve) => setTimeout(resolve, 500));
+      // await new Promise((resolve) => setTimeout(resolve, 500));
+      const obj = {
+        ...data,
+        profile: {
+          name: data.name,
+          gender: data.gender,
+          phone: data.phone,
+        },
+      };
+      // console.log(obj);
+      if (!isEdit) {
+        await register(obj);
+      } else {
+        await updated(obj);
+
+        // navigate(PATH_DASHBOARD.user.list);
+      }
       reset();
-      // enqueueSnackbar(!isEdit ? 'Create success!' : 'Update success!');
-      // navigate(PATH_DASHBOARD.user.list);
-      console.log(data);
+      enqueueSnackbar(!isEdit ? 'Tạo thành công!' : 'Cập nhật thành công!');
+      navigate(PATH_DASHBOARD.user.list);
+      // console.log(data);
     } catch (error) {
       console.error(error);
     }
@@ -219,7 +237,7 @@ export default function UserNewEditForm({ isEdit, currentUser }) {
               <RHFTextField name="name" label="Họ tên" />
 
               {/* <RHFTextField name="email" label="Email Address" /> */}
-              <RHFTextField name="phoneNumber" label="Số điện thoại" type="number" />
+              <RHFTextField name="phone" label="Số điện thoại" type="number" />
 
               <RHFSelect name="gender" label="Giới tính" placeholder="Giới tính">
                 <option value="" />
@@ -237,7 +255,7 @@ export default function UserNewEditForm({ isEdit, currentUser }) {
 
             <Stack alignItems="flex-end" sx={{ mt: 3 }}>
               <LoadingButton type="submit" variant="contained" loading={isSubmitting}>
-                {!isEdit ? 'Tạo người dùng' : 'Save Changes'}
+                {!isEdit ? 'Tạo người dùng' : 'Lưu thay đổi'}
               </LoadingButton>
             </Stack>
           </Card>
