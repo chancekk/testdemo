@@ -86,7 +86,7 @@ export default function StandardNode({ node, onEdit, onDelete, sx }) {
             sx={{ color: 'error.main' }}
           >
             <Iconify icon={'eva:trash-2-outline'} />
-            Delete
+            Xóa
           </MenuItem>
         )}
 
@@ -98,7 +98,7 @@ export default function StandardNode({ node, onEdit, onDelete, sx }) {
             }}
           >
             <Iconify icon={'eva:edit-fill'} />
-            Edit
+            Chỉnh sửa
           </MenuItem>
         )}
       </MenuPopover>

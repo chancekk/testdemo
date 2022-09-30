@@ -1,6 +1,6 @@
 import * as Yup from 'yup';
 import { useState } from 'react';
-import { Link as RouterLink } from 'react-router-dom';
+import { Link as RouterLink, useNavigate } from 'react-router-dom';
 // form
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -21,6 +21,8 @@ import { FormProvider, RHFTextField, RHFCheckbox } from '../../../components/hoo
 export default function LoginForm() {
   const { login } = useAuth();
 
+  const navigate = useNavigate();
+
   const isMountedRef = useIsMountedRef();
 
   const [showPassword, setShowPassword] = useState(false);
@@ -31,8 +33,8 @@ export default function LoginForm() {
   });
 
   const defaultValues = {
-    username: 'khanglpd1',
-    password: '123456',
+    username: '',
+    password: '',
   };
 
   const methods = useForm({
@@ -50,6 +52,7 @@ export default function LoginForm() {
   const onSubmit = async (data) => {
     try {
       await login(data.username, data.password);
+      navigate('/dashboard/user/list');
     } catch (error) {
       console.error(error);
 
@@ -86,12 +89,12 @@ export default function LoginForm() {
 
       <Stack direction="row" alignItems="center" justifyContent="space-between" sx={{ my: 2 }}>
         <Link component={RouterLink} variant="subtitle2" to={PATH_AUTH.resetPassword}>
-          Forgot password?
+          Bạn quên mật khẩu?
         </Link>
       </Stack>
 
       <LoadingButton fullWidth size="large" type="submit" variant="contained" loading={isSubmitting}>
-        Login
+        Đăng nhập
       </LoadingButton>
     </FormProvider>
   );

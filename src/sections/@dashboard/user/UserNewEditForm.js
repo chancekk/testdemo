@@ -19,6 +19,7 @@ import { countries, gender } from '../../../_mock';
 import Label from '../../../components/Label';
 import { FormProvider, RHFSelect, RHFSwitch, RHFTextField, RHFUploadAvatar } from '../../../components/hook-form';
 import useAuth from '../../../hooks/useAuth';
+import axios from '../../../utils/axios';
 
 // ----------------------------------------------------------------------
 
@@ -35,10 +36,10 @@ export default function UserNewEditForm({ isEdit, currentUser }) {
   const { enqueueSnackbar } = useSnackbar();
 
   const NewUserSchema = Yup.object().shape({
-    username: Yup.string().required('Vui lòng nhập tên đăng nhập...'),
-    password: Yup.string().required('Vui lòng nhập tên mật khẩu...'),
-    name: Yup.string().required('Vui lòng nhập tên họ tên...'),
-    phone: Yup.string().required('Vui lòng nhập tên số điện thoại...'),
+    username: Yup.string().min(6, 'Tên đăng nhập phải có ít nhất 6 kí tự').required('Vui lòng nhập tên đăng nhập...'),
+    password: Yup.string().min(6, 'Mật khẩu phải có ít nhất 6 kí tự').required('Vui lòng nhập tên mật khẩu...'),
+    name: Yup.string().min(6, 'Họ tên phải có ít nhất 6 kí tự').required('Vui lòng nhập tên họ tên...'),
+    phone: Yup.string().min(6, 'Số điện thoại phải có ít nhất 6 số').required('Vui lòng nhập số điện thoại...'),
     gender: Yup.string().required('Vui lòng chọn giới tính...'),
     // company: Yup.string().required('Company is required'),
     // state: Yup.string().required('State is required'),
@@ -50,6 +51,7 @@ export default function UserNewEditForm({ isEdit, currentUser }) {
   const defaultValues = useMemo(
     () => ({
       username: currentUser?.username || '',
+      password: currentUser?.password || '',
       name: currentUser?.profile.name || '',
       phone: currentUser?.profile.phone || '',
       gender: currentUser?.profile.gender || '',
@@ -94,7 +96,6 @@ export default function UserNewEditForm({ isEdit, currentUser }) {
 
   const onSubmit = async (data) => {
     try {
-      // await new Promise((resolve) => setTimeout(resolve, 500));
       const obj = {
         ...data,
         profile: {
@@ -103,6 +104,11 @@ export default function UserNewEditForm({ isEdit, currentUser }) {
           phone: data.phone,
         },
       };
+      const updated = async (obj) => {
+        const response = await axios.put(`/api/users/${currentUser.id}`, obj);
+      };
+      // await new Promise((resolve) => setTimeout(resolve, 500));
+
       // console.log(obj);
       if (!isEdit) {
         await register(obj);
@@ -232,7 +238,8 @@ export default function UserNewEditForm({ isEdit, currentUser }) {
               }}
             >
               <RHFTextField name="username" label="Tên đăng nhập" />
-              <RHFTextField name="password" label="Mật khẩu" type="password" />
+
+              {!isEdit && <RHFTextField name="password" label="Mật khẩu" type="password" />}
 
               <RHFTextField name="name" label="Họ tên" />
 
