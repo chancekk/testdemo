@@ -38,8 +38,8 @@ export default function UserNewEditForm({ isEdit, currentUser }) {
   const NewUserSchema = Yup.object().shape({
     username: Yup.string().min(6, 'Tên đăng nhập phải có ít nhất 6 kí tự').required('Vui lòng nhập tên đăng nhập...'),
     password: Yup.string().min(6, 'Mật khẩu phải có ít nhất 6 kí tự').required('Vui lòng nhập tên mật khẩu...'),
-    name: Yup.string().min(6, 'Họ tên phải có ít nhất 6 kí tự').required('Vui lòng nhập tên họ tên...'),
-    phone: Yup.string().min(6, 'Số điện thoại phải có ít nhất 6 số').required('Vui lòng nhập số điện thoại...'),
+    name: Yup.string().required('Vui lòng nhập tên họ tên...'),
+    phone: Yup.string().min(9, 'Số điện thoại phải có ít nhất 9 số').required('Vui lòng nhập số điện thoại...'),
     gender: Yup.string().required('Vui lòng chọn giới tính...'),
     // company: Yup.string().required('Company is required'),
     // state: Yup.string().required('State is required'),

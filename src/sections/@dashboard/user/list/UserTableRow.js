@@ -21,7 +21,7 @@ UserTableRow.propTypes = {
 export default function UserTableRow({ row, selected, onEditRow, onSelectRow, onDeleteRow }) {
   const theme = useTheme();
 
-  const { name, avatarUrl, id, profile, username, password, company, role, isVerified, status } = row;
+  const { name, avatar, id, profile, username, password, company, role, isVerified, status } = row;
 
   const [openMenu, setOpenMenuActions] = useState(null);
 
@@ -32,7 +32,7 @@ export default function UserTableRow({ row, selected, onEditRow, onSelectRow, on
   const handleCloseMenu = () => {
     setOpenMenuActions(null);
   };
-
+  console.log(avatar);
   return (
     <TableRow hover selected={selected}>
       <TableCell padding="checkbox">
@@ -40,12 +40,11 @@ export default function UserTableRow({ row, selected, onEditRow, onSelectRow, on
       </TableCell>
 
       <TableCell sx={{ display: 'flex', alignItems: 'center' }}>
-        <Avatar alt={name} src={''} sx={{ mr: 2 }} />
+        <Avatar alt={name} src={profile.avatar} sx={{ mr: 2 }} />
         <Typography variant="subtitle2" noWrap>
           {username}
         </Typography>
       </TableCell>
-
       <TableCell align="left">{profile.name}</TableCell>
       <TableCell align="left">{profile.gender}</TableCell>
       <TableCell align="left">{profile.phone}</TableCell>

@@ -48,16 +48,18 @@ const navConfig = [
       // USER
       {
         title: 'Người dùng',
-        path: PATH_DASHBOARD.user.root,
+        path: PATH_DASHBOARD.user.profile,
         icon: ICONS.user,
-        children: [
-          // { title: 'profile', path: PATH_DASHBOARD.user.profile },
-          // { title: 'cards', path: PATH_DASHBOARD.user.cards },
-          { title: 'Danh sách người dùng', path: PATH_DASHBOARD.user.list },
-          { title: 'Tạo người dùng', path: PATH_DASHBOARD.user.new },
-          // { title: 'edit', path: PATH_DASHBOARD.user.demoEdit },
-          // { title: 'account', path: PATH_DASHBOARD.user.account },
-        ],
+      },
+      {
+        title: 'Danh sách người dùng',
+        path: PATH_DASHBOARD.user.list,
+        icon: ICONS.user,
+      },
+      {
+        title: 'Tạo người dùng',
+        path: PATH_DASHBOARD.user.new,
+        icon: ICONS.user,
       },
 
       // E-COMMERCE
