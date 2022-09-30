@@ -1,18 +1,17 @@
 import _mock from './_mock';
 import { randomNumberRange, randomInArray } from './funcs';
-
 // ----------------------------------------------------------------------
 
 export const _userAbout = {
   id: _mock.id(1),
-  cover: _mock.image.cover(1),
-  position: 'UI Designer',
+  cover: _mock.image.cover(5),
+  position: '',
   follower: randomNumberRange(999, 99999),
   following: randomNumberRange(999, 99999),
   quote: 'Tart I love sugar plum I love oat cake. Sweet roll caramels I love jujubes. Topping cake wafer..',
   country: _mock.address.country(1),
   email: _mock.email(1),
-  company: _mock.company(1),
+  company: _mock.company(4),
   school: _mock.company(2),
   role: 'Manager',
   facebookLink: `https://www.facebook.com/caitlyn.kerluke`,

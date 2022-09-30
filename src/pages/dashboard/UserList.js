@@ -154,8 +154,7 @@ export default function UserList() {
           heading="Danh sách người dùng"
           links={[
             { name: 'Dashboard', href: PATH_DASHBOARD.root },
-            { name: 'User', href: PATH_DASHBOARD.user.root },
-            { name: 'List' },
+            { name: 'Danh-sach-nguoi-dung', href: PATH_DASHBOARD.user.root },
           ]}
           action={
             <Button

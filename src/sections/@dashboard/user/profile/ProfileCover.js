@@ -59,8 +59,8 @@ export default function ProfileCover({ myProfile }) {
             borderWidth: 2,
             borderStyle: 'solid',
             borderColor: 'common.white',
-            width: { xs: 80, md: 128 },
-            height: { xs: 80, md: 128 },
+            width: { xs: 100, md: 128 },
+            height: { xs: 100, md: 128 },
           }}
         />
         <Box
@@ -71,7 +71,8 @@ export default function ProfileCover({ myProfile }) {
             textAlign: { xs: 'center', md: 'left' },
           }}
         >
-          <Typography variant="h4">{user?.displayName}</Typography>
+          <Typography variant="h4">{user?.username}</Typography>
+          <Typography variant="subtitle2">{user?.profile.phone}</Typography>
           <Typography sx={{ opacity: 0.72 }}>{position}</Typography>
         </Box>
       </InfoStyle>

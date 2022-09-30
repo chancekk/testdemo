@@ -49,8 +49,7 @@ export default function UserCreate() {
           heading={!isEdit ? 'Tạo người dùng' : 'Chỉnh sửa người dùng'}
           links={[
             { name: 'Dashboard', href: PATH_DASHBOARD.root },
-            { name: 'User', href: PATH_DASHBOARD.user.list },
-            { name: !isEdit ? 'New user' : capitalCase(name) },
+            { name: 'Tao-nguoi-dung', href: PATH_DASHBOARD.user.list },
           ]}
         />
 

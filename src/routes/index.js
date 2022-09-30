@@ -12,6 +12,7 @@ import AuthGuard from '../guards/AuthGuard';
 import { PATH_AFTER_LOGIN } from '../config';
 // components
 import LoadingScreen from '../components/LoadingScreen';
+import Demomatter from '../pages/matterjs/demo';
 
 // ----------------------------------------------------------------------
 
@@ -123,6 +124,11 @@ export default function Router() {
             { path: ':systemLabel/:mailId', element: <Mail /> },
           ],
         },
+        {
+          path: 'thi-nghiem-ao',
+          children: [{ path: 'demo', element: <Demomatter /> }],
+        },
+
         {
           path: 'chat',
           children: [

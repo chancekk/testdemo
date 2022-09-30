@@ -54,12 +54,19 @@ const navConfig = [
       {
         title: 'Danh sách người dùng',
         path: PATH_DASHBOARD.user.list,
-        icon: ICONS.user,
+        icon: ICONS.invoice,
       },
       {
         title: 'Tạo người dùng',
         path: PATH_DASHBOARD.user.new,
-        icon: ICONS.user,
+        icon: ICONS.menuItem,
+      },
+      {
+        title: 'Thí nghiệm ảo',
+        path: PATH_DASHBOARD.demo.root,
+        icon: ICONS.menuItem,
+
+        children: [{ title: 'Demo', path: PATH_DASHBOARD.demo.demoMatter }],
       },
 
       // E-COMMERCE

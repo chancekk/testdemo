@@ -39,6 +39,8 @@ export default function UserNewEditForm({ isEdit, currentUser }) {
     username: Yup.string().min(6, 'Tên đăng nhập phải có ít nhất 6 kí tự').required('Vui lòng nhập tên đăng nhập...'),
     password: Yup.string().min(6, 'Mật khẩu phải có ít nhất 6 kí tự').required('Vui lòng nhập tên mật khẩu...'),
     name: Yup.string().required('Vui lòng nhập tên họ tên...'),
+    avatar: Yup.string().required('Vui lòng nhập tên địa chỉ URL của avatar...'),
+
     phone: Yup.string().min(9, 'Số điện thoại phải có ít nhất 9 số').required('Vui lòng nhập số điện thoại...'),
     gender: Yup.string().required('Vui lòng chọn giới tính...'),
     // company: Yup.string().required('Company is required'),
@@ -55,6 +57,7 @@ export default function UserNewEditForm({ isEdit, currentUser }) {
       name: currentUser?.profile.name || '',
       phone: currentUser?.profile.phone || '',
       gender: currentUser?.profile.gender || '',
+      avatar: currentUser?.profile.avatar || '',
       // state: currentUser?.state || '',
       // city: currentUser?.city || '',
       // zipCode: currentUser?.zipCode || '',
@@ -102,6 +105,7 @@ export default function UserNewEditForm({ isEdit, currentUser }) {
           name: data.name,
           gender: data.gender,
           phone: data.phone,
+          avatar: data.avatar,
         },
       };
       const updated = async (obj) => {
@@ -242,6 +246,7 @@ export default function UserNewEditForm({ isEdit, currentUser }) {
               {!isEdit && <RHFTextField name="password" label="Mật khẩu" type="password" />}
 
               <RHFTextField name="name" label="Họ tên" />
+              <RHFTextField name="avatar" label="Ảnh đại diện" />
 
               {/* <RHFTextField name="email" label="Email Address" /> */}
               <RHFTextField name="phone" label="Số điện thoại" type="number" />

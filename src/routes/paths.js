@@ -47,6 +47,11 @@ export const PATH_DASHBOARD = {
     root: path(ROOTS_DASHBOARD, '/mail'),
     all: path(ROOTS_DASHBOARD, '/mail/all'),
   },
+  demo: {
+    root: path(ROOTS_DASHBOARD, '/thi-nghiem-ao'),
+    demoMatter: path(ROOTS_DASHBOARD, '/thi-nghiem-ao/demo'),
+  },
+
   chat: {
     root: path(ROOTS_DASHBOARD, '/chat'),
     new: path(ROOTS_DASHBOARD, '/chat/new'),

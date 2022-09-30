@@ -63,8 +63,7 @@ export default function UserAccount() {
           heading="Đổi mật khẩu"
           links={[
             { name: 'Dashboard', href: PATH_DASHBOARD.root },
-            { name: 'User', href: PATH_DASHBOARD.user.root },
-            { name: 'Account Settings' },
+            { name: 'Doi-mat-khau', href: PATH_DASHBOARD.user.root },
           ]}
         />
 

@@ -59,7 +59,7 @@ export default function LoginForm() {
       reset();
 
       if (isMountedRef.current) {
-        setError('afterSubmit', { ...error, message: error.message });
+        setError('afterSubmit', { ...error, message: 'Thông tin đăng nhập không chính xác' });
       }
     }
   };

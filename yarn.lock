@@ -8617,6 +8617,11 @@
   dependencies:
     "@math.gl/core" "3.6.1"
 
+"matter-js@^0.18.0":
+  "integrity" "sha512-/ZVem4WygUnbmo/iE4oHZpZS97btfBtYy5Iwn1396vUZU7YhgVEN8J4UWwfZwY1ZqoTYlPgjvSw9WXauuXL0mg=="
+  "resolved" "https://registry.npmjs.org/matter-js/-/matter-js-0.18.0.tgz"
+  "version" "0.18.0"
+
 "mdast-util-definitions@^5.0.0":
   "integrity" "sha512-rQ+Gv7mHttxHOBx2dkF4HWTg+EE+UR78ptQWDylzPKaQuVGdG4HIoY3SrS/pCp80nZ04greFvXbVFHT+uf0JVQ=="
   "resolved" "https://registry.npmjs.org/mdast-util-definitions/-/mdast-util-definitions-5.1.1.tgz"

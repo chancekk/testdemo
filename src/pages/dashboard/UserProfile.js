@@ -84,11 +84,10 @@ export default function UserProfile() {
     <Page title="User: Profile">
       <Container maxWidth={themeStretch ? false : 'lg'}>
         <HeaderBreadcrumbs
-          heading="Profile"
+          heading="Thông tin người dùng"
           links={[
             { name: 'Dashboard', href: PATH_DASHBOARD.root },
-            { name: 'User', href: PATH_DASHBOARD.user.root },
-            { name: user?.displayName || '' },
+            { name: 'Thong-tin-nguoi-dung', href: PATH_DASHBOARD.user.root },
           ]}
         />
         <Card

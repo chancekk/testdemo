@@ -14,8 +14,8 @@ export default function MyAvatar({ ...other }) {
     <Avatar
       src={user?.profile.avatar}
       alt={user?.profile.name}
-      // color={user?.username ? 'default' : createAvatar(user?.username).color}
-      // {...other}
+      color={user?.profile.avatar ? 'default' : createAvatar(user?.profile.name).color}
+      {...other}
     >
       {createAvatar(user?.username).name}
     </Avatar>
