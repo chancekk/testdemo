@@ -100,7 +100,6 @@ export default function UserList() {
     };
     demoapi();
   }, []);
-  console.log(tableData);
   const [filterName, setFilterName] = useState('');
 
   const [filterRole, setFilterRole] = useState('all');
@@ -118,12 +117,24 @@ export default function UserList() {
 
   const handleDeleteRow = (id) => {
     const deleteRow = tableData.filter((row) => row.id !== id);
+    const deleted = async (id) => {
+      const response = await axios.post(`/api/delete/users/${id}`);
+    };
+    deleted(id);
     setSelected([]);
     setTableData(deleteRow);
   };
 
   const handleDeleteRows = (selected) => {
     const deleteRows = tableData.filter((row) => !selected.includes(row.id));
+    const deleted = async (id) => {
+      const response = await axios.post(`/api/delete/users/${id}`);
+    };
+    for (let i = 0; i <= selected.length - 1; i += 1) {
+      deleted(selected[i]);
+    }
+    console.log(selected);
+
     setSelected([]);
     setTableData(deleteRows);
   };

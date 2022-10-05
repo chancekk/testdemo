@@ -29,7 +29,7 @@ UserNewEditForm.propTypes = {
 };
 
 export default function UserNewEditForm({ isEdit, currentUser }) {
-  const { register, updated } = useAuth();
+  const { register, updated, createUser } = useAuth();
 
   const navigate = useNavigate();
 
@@ -111,11 +111,15 @@ export default function UserNewEditForm({ isEdit, currentUser }) {
       const updated = async (obj) => {
         const response = await axios.put(`/api/users/${currentUser.id}`, obj);
       };
+      const createUser = async (obj) => {
+        console.log(obj);
+        const response = await axios.post('/api/users/', obj);
+      };
       // await new Promise((resolve) => setTimeout(resolve, 500));
 
       // console.log(obj);
       if (!isEdit) {
-        await register(obj);
+        await createUser(obj);
       } else {
         await updated(obj);
 
